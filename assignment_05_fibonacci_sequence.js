@@ -55,3 +55,73 @@
 // =============================================================================
 
 
+const readlineSync = require("readline-sync");
+
+function generateFibonacci(n) {
+    let sequence = [];
+    let first = 0;
+    let second = 1;
+
+    for (let i = 0; i < n; i++) {
+        sequence.push(first);
+
+        let next = first + second;
+        first = second;
+        second = next;
+    }
+
+    return sequence;
+}
+
+function printFirstNTerms() {
+    const n = readlineSync.questionInt("How many terms? ");
+
+    if (n <= 0) {
+        console.log("Error: Number of terms must be a positive integer.");
+        return;
+    }
+
+    const sequence = generateFibonacci(n);
+
+    console.log(`Fibonacci sequence: ${sequence.join(" ")}`);
+}
+
+function checkFibonacciNumber() {
+    const number = readlineSync.questionInt("Enter a number to check: ");
+
+    if (number < 0) {
+        console.log(`${number} is NOT a Fibonacci number.`);
+        return;
+    }
+
+    let first = 0;
+    let second = 1;
+    let isFibonacci = false;
+
+    while (first <= number) {
+        if (first === number) {
+            isFibonacci = true;
+            break;
+        }
+
+        let next = first + second;
+        first = second;
+        second = next;
+    }
+
+    if (isFibonacci) {
+        console.log(`${number} is a Fibonacci number.`);
+    } else {
+        console.log(`${number} is NOT a Fibonacci number.`);
+    }
+}
+
+function main() {
+    // Part A
+    printFirstNTerms();
+
+    // Part B
+    checkFibonacciNumber();
+}
+
+main();
